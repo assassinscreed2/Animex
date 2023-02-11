@@ -1,9 +1,8 @@
 const button = document.getElementById("invokebutton")
-const shownplace = document.getElementById("information")
+console.log(button)
 
 button.addEventListener("click",async ()=>{
     console.log("blickd")
-    shownplace.textContent = "Loading...."
     const data = await fetch('https://gogoanime2.p.rapidapi.com/recent-release?type=1&page=1',{
         method:"GET",
         headers:{
@@ -14,7 +13,6 @@ button.addEventListener("click",async ()=>{
     
     const response = await data.json()
 
-    shownplace.textContent = response
     const [tab] = await chrome.tabs.query({active:true, currentWindow: true})
     console.log(tab)
     const res = await chrome.tabs.sendMessage(tab.id,{response})
