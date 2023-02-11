@@ -16,18 +16,25 @@
 </head>
 <body>
   <div class="container">
-    <div class="heading">Animex</div>
-    <input class="input-field" type="text" placeholder="Enter anime name">
+    <div class="heading">
+      <img class="logo" src="logo.png">
+      <img class="title" src="logoname.png">
+    </div>
+    <div class = "search">
+      <input class="input-field" type="text" placeholder="Enter anime name">
+      <input type="image" class="search-icon" src="icons8-search-more-25.png">
+    </div>
     <div class="buttons-container">
-      <div class="button latest-episodes-button">
-        <div class="icon">E</div>
-      </div>
-      <div class="button top-airing-animes-button">
-        <div class="icon">A</div>
-      </div>
-      <div class="button popular-animes-button">
-        <div class="icon">P</div>
-      </div>
+      <button class="button latest-episodes-button action-button"><p style="font-size:15px;">Latest Episodes</p></button>
+      
+      <button class="button top-airing-animes-button action-button"><p style="font-size:15px;">Top Airing</p></button>
+      
+      <button class="button popular-animes-button action-button"><p style="font-size:15px;">Popular Animes</p></button>
+    </div>
+    <div id="loading">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
     </div>
   </div>
 </body>

@@ -5,40 +5,114 @@
     padding: 20px;
   }
 .heading {
-    font-size: 24px;
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
   }
+.logo {
+    width: 25px;
+    height: 25px;
+}
+.title {
+    width: 85px;
+    height: 25px;
+}
+.search {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 .input-field {
-    width: 200px;
+    width: 250px;
     height: 30px;
     font-size: 16px;
     margin-bottom: 20px;
-    padding-left: 10px;
+    margin-right: 6px;
     border-radius: 5px;
     border: 1px solid lightgray;
   }
+
+.search-icon {
+    width: 30px;
+    height: 30px;
+    padding-right: 10px;
+    border-color: white;
+    box-shadow: none;
+    transform: translateY(2px);
+}
+
 .buttons-container {
     display: flex;
+    justify-content: space-between;
   }
 .button {
-    width: 60px;
+    width: 80px;
     height: 60px;
-    border-radius: 50%;
+    border-radius: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 20px;
+    text-align: center;
+    
   }
+
+.action-button {
+    font-size: 20px;
+    color: white;
+    border-width: 0;
+    transition: transform 0.1s ease-out;
+}
+
 .latest-episodes-button {
-    background-color: lightpink;
+    background-color: #FFAACF;
   }
+
+.latest-episodes-button:active {
+    transform: translateY(2px);
+}
+
 .top-airing-animes-button {
-    background-color: lightblue;
-  }
+    background-color: #30E3DF;
+}
+
+.top-airing-animes-button:active {
+    transform: translateY(2px);
+}
+
 .popular-animes-button {
-    background-color: lightgreen;
+    background-color: #3CCF4E;
   }
+
+.popular-animes-button:active {
+    transform: translateY(2px);
+}
+
 .icon {
     font-size: 20px;
     color: white;
+  }
+
+  #loading {
+    display: block;
+  }
+  
+  .dot {
+    display: inline-block;
+    background-color: black;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    animation: loading 1s ease-in-out infinite;
+  }
+  
+  @keyframes loading {
+    0%, 80%, 100% {
+      transform: scale(0);
+    }
+    
+    40% {
+      transform: scale(1);
+    }
   }

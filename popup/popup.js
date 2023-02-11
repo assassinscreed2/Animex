@@ -2,6 +2,7 @@ const button = document.getElementById("invokebutton")
 const shownplace = document.getElementById("information")
 
 button.addEventListener("click",async ()=>{
+    console.log("blickd")
     shownplace.textContent = "Loading...."
     const data = await fetch('https://gogoanime2.p.rapidapi.com/recent-release?type=1&page=1',{
         method:"GET",
