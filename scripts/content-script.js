@@ -51,7 +51,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         dialogContent.appendChild(list)
         dialog.appendChild(dialogContent)
 
-        dialog.style.opacity = 1
+        setTimeout(()=>{
+            dialog.style.opacity = 1
+        },0.3)
+        
 
         console.log(sender.tab?"from CS:"+sender.tab.url:"from extetn");
         sendResponse({message:"receaved"})
