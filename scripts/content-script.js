@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         dialog = document.createElement('div');
         dialog.style.zIndex = 20000
         dialog.style.minHeight = "20em"
-        dialog.style.minWidth = "25em"
+        dialog.style.minWidth = "28em"
         dialog.style.maxWidth = "30em"
         dialog.style.display = "block"
         dialog.style.position = "fixed"
@@ -35,23 +35,51 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         dialogHeader.style.borderTopRightRadius = "10px"
         
         dialog.appendChild(dialogHeader)
-
         console.log('request',request)
         let dialogContent = document.createElement('div')
         let list = document.createElement("ul")
         list.style.padding = "0"
+        list.style.paddingLeft = "0.1em"
+        list.style.listStyleType = "none"
         request.response.forEach((ele,ind) => {
+
+            let animeImage = ele.animeImg;
+            animeImage = animeImage.replace("https://gogocdn.net","https://cdnimg.xyz")
+
+            let imageDiv = document.createElement("img")
+            imageDiv.src = animeImage
+            //imageDiv.style.backgroundSize = "contain"
+            imageDiv.style.width = "5em"
+            imageDiv.style.height = "6em"
             let para = document.createElement("p")
             para.textContent = ele.animeTitle
             para.style.color = "black"
-            para.style.fontSize = "15px"
-            para.style.margin = "0px"
+            para.style.fontSize = "17px"
+            para.style.fontWeight = "600"
+            para.style.margin = "0px 0px 0px 7px"
             let listitem = document.createElement("li")
+            listitem.appendChild(imageDiv)
+            listitem.style.display = "flex"
+
+            let divpara = document.createElement("p")
+            divpara.textContent = request.buttonName === "Latest Episodes"?`Episode : ${ele.episodeNum}`:
+                                request.buttonName === "Top Airing"?ele.latestEp:`Release Date : ${ele.releasedDate}`
+            divpara.style.margin = "5px 0px 0px 7px"
+
+            let paraDiv = document.createElement("div")
+            paraDiv.style.width = "15em"
+            paraDiv.style.minHeight = "5em"
+            paraDiv.style.display = "flex"
+            paraDiv.style.flexDirection = "column"
+            paraDiv.style.alignContent = "space-around"
+            paraDiv.appendChild(para)
+            paraDiv.appendChild(divpara)
+
             listitem.style.color = "blue"
-            listitem.style.fontSize = "1.6em"
+            listitem.style.fontSize = "1em"
             listitem.style.borderBottom = "3px solid blue";
             listitem.style.padding = "0.6em 0 1em 0";
-            listitem.append(para)
+            listitem.append(paraDiv)
             list.appendChild(listitem)
         });
 
@@ -81,4 +109,3 @@ document.addEventListener('click', function(event) {
       dialog.remove()
     }
 });
-

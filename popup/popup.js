@@ -7,7 +7,7 @@ latestButton.addEventListener("click",async ()=>{
     loading.style.display = "block"
 
     console.log("blickd")
-    const data = await fetch('https://gogoanime2.p.rapidapi.com/recent-release?type=1&page=1',{
+    const data = await fetch('https://gogoanime.consumet.stream/recent-release',{
         method:"GET",
         headers:{
             'X-RapidAPI-Key': '2f29f442ccmshbfca029a7fa434dp180a15jsn270ca0d138c5',
@@ -29,7 +29,6 @@ latestButton.addEventListener("click",async ()=>{
 airingbutton.addEventListener("click",async ()=>{
     loading.style.display = "block"
 
-    console.log("blickd")
     const data = await fetch('https://gogoanime.consumet.stream/top-airing',{
         method:"GET",
         headers:{
@@ -50,7 +49,7 @@ popularbutton.addEventListener("click",async ()=>{
     loading.style.display = "block"
 
     console.log("blickd")
-    const data = await fetch('https://gogoanime2.p.rapidapi.com/popular',{
+    const data = await fetch('https://gogoanime.consumet.stream/popular',{
         method:"GET",
         headers:{
             'X-RapidAPI-Key': '2f29f442ccmshbfca029a7fa434dp180a15jsn270ca0d138c5',
