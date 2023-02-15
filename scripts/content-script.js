@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         dialog.style.zIndex = 20000
         dialog.style.minHeight = "20em"
         dialog.style.minWidth = "28em"
-        dialog.style.maxWidth = "30em"
+        //dialog.style.maxWidth = "30em"
         dialog.style.display = "block"
         dialog.style.position = "fixed"
         dialog.style.top = "50%"
@@ -61,6 +61,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             // parent div for containing anime title and sub para
             let paraDiv = document.createElement("div")
             paraDiv.style.width = "15em"
+            paraDiv.style.marginLeft = "2em"
             paraDiv.style.minHeight = "5em"
             paraDiv.style.display = "flex"
             paraDiv.style.flexDirection = "column"
@@ -79,21 +80,27 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             listitem.style.display = "flex"
             listitem.style.color = "blue"
             listitem.style.fontSize = "1em"
-            listitem.style.borderBottom = "3px solid blue";
-            listitem.style.padding = "0.6em 0 1em 0";
-            
+            listitem.style.borderBottom = `3px solid ${request.buttonColor}`
+            listitem.style.padding = "0.6em 0 1em 0"
 
             let subtitle = document.createElement("p")
             subtitle.textContent = request.buttonName === "Latest Episodes"?`Episode : ${ele.episodeNum}`:
                                 request.buttonName === "Top Airing"?ele.latestEp:
                                 request.buttonName === "Animex"?`${ele.status}`:`Release Date : ${ele.releasedDate}`
-            subtitle.style.margin = "5px 0px 0px 7px"
+            subtitle.style.margin = "7px 0px 0px 7px"
 
             // button for perticular anime search
             const readMoreButton = document.createElement("button")
             readMoreButton.textContent = "Read More"
+            readMoreButton.style.fontSize = "0.8em"
             readMoreButton.id = ele.animeId
-            readMoreButton.style.backgroundColor = "red"
+            readMoreButton.style.color = "red"
+            readMoreButton.style.borderRadius = "20%"
+            readMoreButton.style.border = "2px solid red"
+            readMoreButton.style.width = "6em"
+            readMoreButton.style.height = "2em"
+            readMoreButton.style.margin = "1em 0 0 0em"
+            readMoreButton.style.backgroundColor = "white"
 
             readMoreButton.addEventListener('click',async ()=>{
                 console.log("clicked",readMoreButton)
@@ -127,8 +134,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     
                 // parent div for containing Perticular anime title and sub para
                 let parDiv = document.createElement("div")
-                parDiv.style.maxWidth = "15em"
-                parDiv.style.minHeight = "5em"
+                parDiv.style.width = "15em"
+                parDiv.style.height = "17em"
                 parDiv.style.display = "flex"
                 parDiv.style.flexDirection = "column"
                 parDiv.style.alignContent = "space-around"
@@ -137,30 +144,44 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 let animeTitle = document.createElement("p")
                 animeTitle.textContent = animeData.animeTitle
                 animeTitle.style.color = "black"
-                animeTitle.style.fontSize = "17px"
+                animeTitle.style.fontSize = "1.7rem"
                 animeTitle.style.fontWeight = "600"
-                animeTitle.style.margin = "0px 0px 0px 7px"
-
-                // anime episodes
-                let episodes = document.createElement("p")
-                episodes.textContent = `${animeData.totalEpisodes}`
-                episodes.style.margin = "5px 0px 0px 7px"
+                animeTitle.style.margin = "0px 0px 0px 2em"
 
                 parDiv.appendChild(animeTitle)
-                parDiv.appendChild(episodes)
 
                 parentDivLevel1.appendChild(imgDiv)
                 parentDivLevel1.appendChild(parDiv)
                 parentDivLevel1.style.width = "25em"
-                parentDivLevel1.style.height = "30em"
+                parentDivLevel1.style.height = "20em"
+
+                // anime episodes
+                let episodes = document.createElement("p")
+                episodes.innerHTML = `<span style="font-weight: 600;">Total Episodes</span>: ${animeData.totalEpisodes}`
+                episodes.style.color = "black"
+                episodes.style.margin = "0.5em 0em 0em 0em"
+                episodes.style.fontSize = "1rem"
+
+                // Anime Status
+                let animeStatus = document.createElement("p")
+                animeStatus.style.margin = "0.5em 0em 0em 0em"
+                animeStatus.style.color = "black"
+                animeStatus.style.fontSize = "1rem"
+                animeStatus.innerHTML = `<span style="font-weight: 600;">Current Status</span>: ${animeData.status}`
 
                 // anime Description
+
                 const animeDescription = document.createElement("p")
-                animeDescription.style.minWidth = "20em"
-                animeDescription.textContent = animeData.synopsis
+                animeDescription.style.fontSize = "1rem"
+                animeDescription.style.maxWidth = "25em"
+                animeDescription.style.color = "black"
+                animeDescription.style.margin = "0.5em 0em 0em 0em"
+                animeDescription.innerHTML = `<span style="font-weight: 600;">Description</span>: ${animeData.synopsis}`
                 
                 loading.style.display = "none"
                 parentDiv.appendChild(parentDivLevel1)
+                parentDiv.appendChild(episodes)
+                parentDiv.appendChild(animeStatus)
                 parentDiv.appendChild(animeDescription)
                 dialogContent.appendChild(parentDiv)
                 console.log(animeData) 
