@@ -2,6 +2,9 @@ const latestButton = document.getElementById("invokebutton")
 const airingbutton = document.getElementById("airingbutton")
 const popularbutton = document.getElementById("popularbutton")
 const loading = document.getElementById("loading")
+const textInput = document.getElementById("searchbar")
+const searchbutton = document.getElementById("searchbutton")
+const invalidSearchDiv = document.getElementById("noworderror")
 
 latestButton.addEventListener("click",async ()=>{
     loading.style.display = "block"
@@ -48,7 +51,6 @@ airingbutton.addEventListener("click",async ()=>{
 popularbutton.addEventListener("click",async ()=>{
     loading.style.display = "block"
 
-    console.log("blickd")
     const data = await fetch('https://gogoanime.consumet.stream/popular',{
         method:"GET",
         headers:{
@@ -66,4 +68,38 @@ popularbutton.addEventListener("click",async ()=>{
     loading.style.display = "none"
     console.log(res)
     console.log(response)
+})
+
+searchbutton.addEventListener('click',async () => {
+    const animeName = textInput.value
+    console.log(animeName)
+    if(animeName.length === 0 || animeName.length >= 200){
+        invalidSearchDiv.style.display = "block"
+        setTimeout(()=>{
+            invalidSearchDiv.style.display = "none"
+        },2000)
+    }else{
+        loading.style.display = "block"
+        const animeDetails = await fetch(`https://gogoanime.consumet.stream/search?keyw=${animeName}`)
+        const animeData = await animeDetails.json()
+        if(animeData.length === 0){
+            loading.style.display = "none"
+            invalidSearchDiv.style.display = "block"
+            setTimeout(()=>{
+                invalidSearchDiv.style.display = "none"
+            },2000)
+        }else{
+            const [tab] = await chrome.tabs.query({currentWindow: true, active: true})
+            const dataToSend = {
+                response:animeData,
+                buttonColor:"blue",buttonName:"Animex"
+            }
+            const res = await chrome.tabs.sendMessage(tab.id,dataToSend)
+            loading.style.display = "none"
+            console.log(res)
+        }
+
+        console.log(animeData)
+
+    }
 })

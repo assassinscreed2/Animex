@@ -93,10 +93,7 @@
     color: white;
   }
 
-  #loading {
-    display: none;
-    margin-top: 2em;
-  }
+  
   
   .dot {
     display: inline-block;
@@ -106,6 +103,16 @@
     height: 10px;
     margin: 0 5px;
     animation: loading 1s ease-in-out infinite;
+  }
+
+  #loading {
+    display: none;
+    margin-top: 2em;
+  }
+
+  #noworderror {
+    display: none;
+    margin-top: 2em;
   }
   
   @keyframes loading {
