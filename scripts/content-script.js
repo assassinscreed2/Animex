@@ -55,8 +55,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             animeImage = animeImage.replace("https://gogocdn.net","https://cdnimg.xyz")
             let imageDiv = document.createElement("img")
             imageDiv.src = animeImage
-            imageDiv.style.width = "5em"
-            imageDiv.style.height = "6em"
+            imageDiv.style.width = "6em"
+            imageDiv.style.height = "7em"
 
             // parent div for containing anime title and sub para
             let paraDiv = document.createElement("div")
@@ -88,18 +88,19 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                                 request.buttonName === "Top Airing"?ele.latestEp:
                                 request.buttonName === "Animex"?`${ele.status}`:`Release Date : ${ele.releasedDate}`
             subtitle.style.margin = "7px 0px 0px 7px"
+            subtitle.style.color = "black"
 
             // button for perticular anime search
             const readMoreButton = document.createElement("button")
             readMoreButton.textContent = "Read More"
             readMoreButton.style.fontSize = "0.8em"
             readMoreButton.id = ele.animeId
-            readMoreButton.style.color = "red"
-            readMoreButton.style.borderRadius = "20%"
-            readMoreButton.style.border = "2px solid red"
-            readMoreButton.style.width = "6em"
+            readMoreButton.style.color = "#3C79F5"
+            readMoreButton.style.borderRadius = "10%"
+            readMoreButton.style.border = "2px solid #3C79F5"
+            readMoreButton.style.width = "8em"
             readMoreButton.style.height = "2em"
-            readMoreButton.style.margin = "1em 0 0 0em"
+            readMoreButton.style.margin = "1em 0 0 0.8em"
             readMoreButton.style.backgroundColor = "white"
 
             readMoreButton.addEventListener('click',async ()=>{
@@ -108,6 +109,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 list.style.display = "none"
                 let loading = document.createElement("p")
                 loading.textContent = "Loading ..."
+                loading.style.fontSize = "3rem"
+                loading.style.color = `${request.buttonColor}`
+                loading.style.margin = "1em 0 0 1em"
                 dialogContent.appendChild(loading)
                 console.log(readMoreButton.id)
                 const animeResponse = await fetch(`https://gogoanime.consumet.stream/anime-details/${readMoreButton.id}`)
@@ -117,6 +121,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 const parentDiv = document.createElement("div")
                 parentDiv.display = "flex"
                 parentDiv.flexDirection = "column"
+
+                let backButton = document.createElement("button")
+                backButton.textContent = "Back"
+                backButton.style.fontSize = "1.4rem"
+                backButton.style.color = "#3C79F5"
+                backButton.style.borderRadius = "5%"
+                backButton.style.border = "2px solid #3C79F5"
+                backButton.style.width = "100%"
+                backButton.style.height = "3em"
+                backButton.style.margin = "2em 0 0 0"
+                backButton.style.backgroundColor = "white"
+
+                backButton.addEventListener('click',()=>{
+                    list.style.display = "block"
+                    parentDiv.style.display = "none"
+                })
+                
 
                 const animeHeaderDiv = document.createElement("div")
                 animeHeaderDiv.display = "flex"
@@ -178,11 +199,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 animeDescription.style.margin = "0.5em 0em 0em 0em"
                 animeDescription.innerHTML = `<span style="font-weight: 600;">Description</span>: ${animeData.synopsis}`
                 
-                loading.style.display = "none"
                 parentDiv.appendChild(parentDivLevel1)
                 parentDiv.appendChild(episodes)
                 parentDiv.appendChild(animeStatus)
                 parentDiv.appendChild(animeDescription)
+                parentDiv.appendChild(backButton)
+
+                loading.style.display = "none"
                 dialogContent.appendChild(parentDiv)
                 console.log(animeData) 
             })

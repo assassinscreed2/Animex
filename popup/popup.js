@@ -92,7 +92,7 @@ searchbutton.addEventListener('click',async () => {
             const [tab] = await chrome.tabs.query({currentWindow: true, active: true})
             const dataToSend = {
                 response:animeData,
-                buttonColor:"blue",buttonName:"Animex"
+                buttonColor:"#3C79F5",buttonName:"Animex"
             }
             const res = await chrome.tabs.sendMessage(tab.id,dataToSend)
             loading.style.display = "none"
